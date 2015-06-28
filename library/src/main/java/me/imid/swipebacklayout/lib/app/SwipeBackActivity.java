@@ -2,49 +2,47 @@
 package me.imid.swipebacklayout.lib.app;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.Utils;
 
-public class SwipeBackActivity extends FragmentActivity implements SwipeBackActivityBase {
-    private SwipeBackActivityHelper mHelper;
+public class SwipeBackActivity extends AppCompatActivity {
+
+    private SwipeBackDelegate mDelegate = new SwipeBackDelegate(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mHelper = new SwipeBackActivityHelper(this);
-        mHelper.onActivityCreate();
+        mDelegate.onCreate();
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        mHelper.onPostCreate();
+        mDelegate.onPostCreate();
     }
 
     @Override
     public View findViewById(int id) {
         View v = super.findViewById(id);
-        if (v == null && mHelper != null)
-            return mHelper.findViewById(id);
+        if (v == null && mDelegate != null)
+            return mDelegate.findViewById(id);
         return v;
     }
 
-    @Override
     public SwipeBackLayout getSwipeBackLayout() {
-        return mHelper.getSwipeBackLayout();
+        return mDelegate.getSwipeBackLayout();
     }
 
-    @Override
     public void setSwipeBackEnable(boolean enable) {
         getSwipeBackLayout().setEnableGesture(enable);
     }
 
-    @Override
     public void scrollToFinishActivity() {
         Utils.convertActivityToTranslucent(this);
         getSwipeBackLayout().scrollToFinishActivity();
     }
+
 }

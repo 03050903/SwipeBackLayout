@@ -12,17 +12,17 @@ import me.imid.swipebacklayout.lib.Utils;
 /**
  * @author Yrom
  */
-public class SwipeBackActivityHelper {
+public class SwipeBackDelegate {
     private Activity mActivity;
 
     private SwipeBackLayout mSwipeBackLayout;
 
-    public SwipeBackActivityHelper(Activity activity) {
+    public SwipeBackDelegate(Activity activity) {
         mActivity = activity;
     }
 
     @SuppressWarnings("deprecation")
-    public void onActivityCreate() {
+    public void onCreate() {
         mActivity.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         mActivity.getWindow().getDecorView().setBackgroundDrawable(null);
         mSwipeBackLayout = (SwipeBackLayout) LayoutInflater.from(mActivity).inflate(
